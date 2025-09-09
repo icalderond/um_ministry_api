@@ -1,5 +1,6 @@
 import * as express from 'express';
 import UserRoll from '../models/userRoll.model';
+import Users from '../models/user.model';
 
 class UserRollController {
     public router = express.Router();
@@ -67,6 +68,14 @@ class UserRollController {
 
     private deleteUserRoll = async (req: express.Request, res: express.Response) => {
         try {
+            Users.findOne({ where: { userRollId: req.params.id } })
+                .then(user => {
+                    if (user) {
+                        res.status(400).json({ message: 'Cannot delete UserRoll with associated Users' });
+                        return;
+                    }
+                });
+
             const deleted = await UserRoll.destroy({
                 where: { id: req.params.id }
             });
