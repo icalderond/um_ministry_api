@@ -1,5 +1,6 @@
 import * as express from 'express';
 import User from '../models/user.model';
+import UserRoll from '../models/userRoll.model';
 
 class UserController {
     public router = express.Router();
@@ -46,7 +47,7 @@ class UserController {
                 model.userRollId = 2; // Default to 'User' role if not provided
             }
 
-            const userRoll = await User.findOne({ where: { id: model.userRollId } });
+            const userRoll = await UserRoll.findOne({ where: { id: model.userRollId } });
             if (!userRoll) {
                 res.status(400).json({ error: 'Invalid userRollId' });
                 return;
@@ -73,13 +74,13 @@ class UserController {
                 return;
             }
 
-            if(model.userRollId !== undefined) {
+            if (model.userRollId !== undefined) {
                 const userRoll = await User.findOne({ where: { id: model.userRollId } });
                 if (!userRoll) {
                     res.status(400).json({ error: 'Invalid userRollId' });
                     return;
                 }
-            }else {
+            } else {
                 model.userRollId = 2; // Default to 'User' role if not provided
             }
 

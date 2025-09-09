@@ -40,8 +40,8 @@ class UserRollController {
     };
 
     private createUserRoll = async (req: express.Request, res: express.Response) => {
+        const { body: model } = req;
         try {
-            const { body: model } = req;
             const newUserRoll = await UserRoll.create(model);
             res.status(201).json(newUserRoll);
         } catch (error) {

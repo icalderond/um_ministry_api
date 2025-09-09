@@ -40,7 +40,7 @@ class StudentController {
     }
 
     private createStudent = async (req: express.Request, res: express.Response) => {
-        const { body: model } = req.body;
+        const { body: model } = req;
         try {
             const newStudent = await Student.create(model);
             res.status(201).json(newStudent);

@@ -23,7 +23,7 @@ class AttendanceController {
             const attendances = await Attendance.findAll();
             res.status(200).json(attendances);
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: error });
         }
     };
 
@@ -37,15 +37,15 @@ class AttendanceController {
                 res.status(404).json({ error: 'Attendance not found' });
             }
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: error });
         }
     };
 
     private createAttendance = async (req: express.Request, res: express.Response) => {
-       var {body:model} = req;
-       
+        var { body: model } = req;
+
         try {
-            if(model.studentId == null || model.meetingDayId == null){
+            if (model.studentId == null || model.meetingDayId == null) {
                 return res.status(400).json({ error: 'studentId and meetingDayId are required' });
             }
 
@@ -59,18 +59,18 @@ class AttendanceController {
             if (!meetingDay) {
                 return res.status(400).json({ error: 'Invalid meetingDayId' });
             }
-            
+
             const newAttendance = await Attendance.create(model);
             res.status(201).json(newAttendance);
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: error });
         }
     };
 
     private updateAttendance = async (req: express.Request, res: express.Response) => {
         const { studentId, meetingDayId } = req.params;
-        var {body:model} = req;
-        
+        var { body: model } = req;
+
         try {
             const attendance = await Attendance.findOne({ where: { studentId, meetingDayId } });
             if (attendance) {
@@ -80,7 +80,7 @@ class AttendanceController {
                 res.status(404).json({ error: 'Attendance not found' });
             }
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: error });
         }
     };
 
@@ -95,7 +95,7 @@ class AttendanceController {
                 res.status(404).json({ error: 'Attendance not found' });
             }
         } catch (error) {
-            res.status(500).json({ error: 'Internal Server Error' });
+            res.status(500).json({ error: error });
         }
     };
 }
