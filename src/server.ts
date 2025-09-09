@@ -1,12 +1,13 @@
 
 import dotenv from 'dotenv';
 import App from './app'
+import StudentController from './controllers/student.controller';
 
 dotenv.config();
 
 const app = new App(
     [
-        // Add your route handlers here (controllers, routers, etc.)
+        new StudentController()
     ],
     process.env.PORT
 );
