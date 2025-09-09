@@ -56,7 +56,7 @@ class MeetingDayController {
         const { id } = req.params;
         const { body: model } = req;
         try {
-            if(id != model.id){
+            if (id != model.id) {
                 res.status(400).json({ error: 'ID in params does not match ID in body' });
                 return;
             }
