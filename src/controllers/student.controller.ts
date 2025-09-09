@@ -40,9 +40,9 @@ class StudentController {
     }
 
     private createStudent = async (req: express.Request, res: express.Response) => {
-        const { name } = req.body;
+        const { body: model } = req.body;
         try {
-            const newStudent = await Student.create({ name, isActive: true });
+            const newStudent = await Student.create(model);
             res.status(201).json(newStudent);
         } catch (error) {
             res.status(500).json({ error: error });
@@ -51,12 +51,12 @@ class StudentController {
 
     private updateStudent = async (req: express.Request, res: express.Response) => {
         const { id } = req.params;
-        const { name, isActive } = req.body;
+        const { body: model } = req;
         try {
             const student = await Student.findByPk(id);
             if (student) {
-                student.name = name ?? student.name;
-                student.isActive = isActive ?? student.isActive;
+                student.name = model.name ?? student.name;
+                student.isActive = model.isActive ?? student.isActive;
                 await student.save();
                 res.status(200).json(student);
             } else {
