@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: um_ministry_api
+    ports:
+      - "5001:5001"
+    environment:
+      NODE_ENV: production
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - shared-net
+
+networks:
+  shared-net:
+    external: true
