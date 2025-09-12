@@ -9,11 +9,11 @@ class StudentController {
     }
 
     private initializeRoutes() {
-        this.router.get('/students', this.getAllStudents);
-        this.router.get('/students/:id', this.getStudentById);
-        this.router.post('/students', this.createStudent);
-        this.router.put('/students/:id', this.updateStudent);
-        this.router.delete('/students/:id', this.deleteStudent);
+        this.router.get('/api/students', this.getAllStudents);
+        this.router.get('/api/students/:id', this.getStudentById);
+        this.router.post('/api/students', this.createStudent);
+        this.router.put('/api/students/:id', this.updateStudent);
+        this.router.delete('/api/students/:id', this.deleteStudent);
     }
 
     private getAllStudents = async (req: express.Request, res: express.Response) => {

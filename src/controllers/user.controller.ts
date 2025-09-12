@@ -1,6 +1,6 @@
 import * as express from 'express';
 import User from '../models/user.model';
-import UserRoll from '../models/userRoll.model';
+import UserRoll from '../models/userRole.model';
 
 class UserController {
     public router = express.Router();
@@ -10,11 +10,11 @@ class UserController {
     }
 
     private initializeRoutes() {
-        this.router.get('/users', this.getAllUsers);
-        this.router.get('/users/:id', this.getUserById);
-        this.router.post('/users', this.createUser);
-        this.router.put('/users/:id', this.updateUser);
-        this.router.delete('/users/:id', this.deleteUser);
+        this.router.get('/api/users', this.getAllUsers);
+        this.router.get('/api/users/:id', this.getUserById);
+        this.router.post('/api/users', this.createUser);
+        this.router.put('/api/users/:id', this.updateUser);
+        this.router.delete('/api/users/:id', this.deleteUser);
     }
 
     private getAllUsers = async (req: express.Request, res: express.Response) => {

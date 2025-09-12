@@ -11,11 +11,11 @@ class AttendanceController {
     }
 
     private initializeRoutes() {
-        this.router.get('/attendances', this.getAllAttendances);
-        this.router.get('/attendances/:studentId/:meetingDayId', this.getAttendanceById);
-        this.router.post('/attendances', this.createAttendance);
-        this.router.put('/attendances/:studentId/:meetingDayId', this.updateAttendance);
-        this.router.delete('/attendances/:studentId/:meetingDayId', this.deleteAttendance);
+        this.router.get('/api/attendances', this.getAllAttendances);
+        this.router.get('/api/attendances/:studentId/:meetingDayId', this.getAttendanceById);
+        this.router.post('/api/attendances', this.createAttendance);
+        this.router.put('/api/attendances/:studentId/:meetingDayId', this.updateAttendance);
+        this.router.delete('/api/attendances/:studentId/:meetingDayId', this.deleteAttendance);
     }
 
     private getAllAttendances = async (req: express.Request, res: express.Response) => {

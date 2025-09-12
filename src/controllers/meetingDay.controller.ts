@@ -9,11 +9,11 @@ class MeetingDayController {
     }
 
     private initializeRoutes() {
-        this.router.get('/meetingDays', this.getAllMeetingDays);
-        this.router.get('/meetingDays/:id', this.getMeetingDayById);
-        this.router.post('/meetingDays', this.createMeetingDay);
-        this.router.put('/meetingDays/:id', this.updateMeetingDay);
-        this.router.delete('/meetingDays/:id', this.deleteMeetingDay);
+        this.router.get('/api/meetingDays', this.getAllMeetingDays);
+        this.router.get('/api/meetingDays/:id', this.getMeetingDayById);
+        this.router.post('/api/meetingDays', this.createMeetingDay);
+        this.router.put('/api/meetingDays/:id', this.updateMeetingDay);
+        this.router.delete('/api/meetingDays/:id', this.deleteMeetingDay);
     }
 
     private getAllMeetingDays = async (req: express.Request, res: express.Response) => {
