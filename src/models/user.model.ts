@@ -1,12 +1,13 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../database';
+import UserRole from './userRole.model';
 
 interface UserAttributes {
     id: number;
-    userRollId: number;
+    userRoleId: number;
     name: string;
-    userName:string;
-    password:string;
+    userName: string;
+    password: string;
     isActive: boolean;
 }
 
@@ -14,11 +15,14 @@ interface UserCreationAttributes extends Optional<UserAttributes, 'id'> { }
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
     public id!: number;
-    public userRollId!: number;
+    public userRoleId!: number;
     public name!: string;
     public userName!: string;
     public password!: string;
     public isActive!: boolean;
+
+    // Association
+    public userRole?: UserRole; // for eager loading
 }
 
 User.init(
@@ -28,11 +32,11 @@ User.init(
             autoIncrement: true,
             primaryKey: true,
         },
-        userRollId: {
+        userRoleId: {
             type: DataTypes.INTEGER,
             allowNull: false,
             references: {
-                model: 'userRolls',
+                model: 'userRoles',
                 key: 'id',
             },
         },
@@ -60,5 +64,8 @@ User.init(
         tableName: 'users',
     }
 );
+
+// Association
+User.belongsTo(UserRole, { foreignKey: 'userRoleId', as: 'userRole' });
 
 export default User;
