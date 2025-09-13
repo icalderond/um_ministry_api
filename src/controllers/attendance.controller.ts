@@ -12,6 +12,7 @@ class AttendanceController {
 
     private initializeRoutes() {
         this.router.get('/api/attendances', this.getAllAttendances);
+        this.router.get('/api/attendances/meeting/:meetingDayId', this.getAllAttendancesByMeetingDayId);
         this.router.get('/api/attendances/:studentId/:meetingDayId', this.getAttendanceById);
         this.router.post('/api/attendances', this.createAttendance);
         this.router.put('/api/attendances/:studentId/:meetingDayId', this.updateAttendance);
@@ -38,6 +39,28 @@ class AttendanceController {
             }
         } catch (error) {
             res.status(500).json({ error: error });
+        }
+    };
+
+    private getAllAttendancesByMeetingDayId = async (req: express.Request, res: express.Response) => {
+        const { meetingDayId } = req.params;
+        try {
+            // Validar que el meetingDay exista
+            const meetingDay = await MeetingDay.findOne({ where: { id: meetingDayId } });
+            if (!meetingDay) {
+                return res.status(400).json({ error: 'Invalid meetingDayId' });
+            }
+
+            const attendances = await Attendance.findAll({
+                where: { meetingDayId },
+                include: [
+                    { model: Student, as: 'student' },
+                    { model: MeetingDay, as: 'meetingDay' }
+                ]
+            });
+            res.status(200).json(attendances);
+        } catch (error) {
+            res.status(500).json({ error: error + ' ' + meetingDayId });
         }
     };
 

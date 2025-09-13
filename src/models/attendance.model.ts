@@ -1,5 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import sequelize from '../database';
+import Student from './student.model';
+import MeetingDay from './meetingDay.model';
 
 interface AttendanceAttributes {
     studentId: number;
@@ -15,6 +17,11 @@ class Attendance extends Model<AttendanceAttributes, AttendanceCreationAttribute
     public meetingDayId!: number;
     public note!: string;
     public isActive!: boolean;
+
+    //associations
+    public student?: Student; // for eager loading
+    public meetingDay?: MeetingDay; // for eager loading
+
 }
 
 Attendance.init(
@@ -52,5 +59,8 @@ Attendance.init(
         tableName: 'attendances',
     }
 );
+
+Attendance.belongsTo(Student, { foreignKey: 'studentId', as: 'student' });
+Attendance.belongsTo(MeetingDay, { foreignKey: 'meetingDayId', as: 'meetingDay' });
 
 export default Attendance;
