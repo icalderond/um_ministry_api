@@ -1,6 +1,6 @@
 import * as express from 'express';
 import User from '../models/user.model';
-import UserRoll from '../models/userRole.model';
+import UserRole from '../models/userRole.model';
 
 class UserController {
     public router = express.Router();
@@ -43,13 +43,13 @@ class UserController {
     private createUser = async (req: express.Request, res: express.Response) => {
         const { body: model } = req;
         try {
-            if (model.userRollId === undefined) {
-                model.userRollId = 2; // Default to 'User' role if not provided
+            if (model.userRoleId === undefined) {
+                model.userRoleId = 2; // Default to 'User' role if not provided
             }
 
-            const userRoll = await UserRoll.findOne({ where: { id: model.userRollId } });
-            if (!userRoll) {
-                res.status(400).json({ error: 'Invalid userRollId' });
+            const userRole = await UserRole.findOne({ where: { id: model.userRoleId } });
+            if (!userRole) {
+                res.status(400).json({ error: 'Invalid userRoleId' });
                 return;
             }
 
@@ -74,14 +74,14 @@ class UserController {
                 return;
             }
 
-            if (model.userRollId !== undefined) {
-                const userRoll = await User.findOne({ where: { id: model.userRollId } });
-                if (!userRoll) {
-                    res.status(400).json({ error: 'Invalid userRollId' });
+            if (model.userRoleId !== undefined) {
+                const userRole = await User.findOne({ where: { id: model.userRoleId } });
+                if (!userRole) {
+                    res.status(400).json({ error: 'Invalid userRoleId' });
                     return;
                 }
             } else {
-                model.userRollId = 2; // Default to 'User' role if not provided
+                model.userRoleId = 2; // Default to 'User' role if not provided
             }
 
             const [updated] = await User.update(model, {
